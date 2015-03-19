@@ -10,10 +10,19 @@
 		public static const initSmallCityRegen:Number = 1;
 		
 		
-		public function hitTest(a:DisplayObject,b:DisplayObject)
+		public static function hitTest(a:DisplayObject,b:DisplayObject)
 		{
 			return a.hitTest(b);
 		}
+		public static function cmp(a:Number, b:Number)
+		{
+				if (a>b)
+					return 1;
+				if (b>a) 
+					return -1;
+				return 0;
+		}
+		
 
 	}
 	

@@ -9,7 +9,7 @@
 
 
 		private var hp:Number;
-		private var Attack:Number;//per second
+		private var attack:Number;//per second
 		private var owner:Number;
 		private var isAttacked:Boolean;
 		private var attackedBy:Array = new Array();
@@ -63,7 +63,7 @@
 					var s:Soldier = attackedBy[i];
 					if (! s.isDead())
 					{
-						s.removeHP(this.Attack/60);
+						s.removeHP(this.attack/60);
 						available = true;
 					}
 					else
