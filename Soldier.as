@@ -22,9 +22,18 @@
 		private var owner: Number;
 		private var destPath : Array;
 		
-		public function GotoDestination(dest:City) {
-			//destPath = getPathFromCity(dest);
-			this.destPath = [dest];
+		public function GotoDestination(dest:City, src:City) {
+			if (dest == -1) //the main city
+				this.destPath = [dest];
+			else
+			{
+				var sign = 1;
+				if ( (dest.id-src.id+utils. 
+				if (
+				destPath 
+				= getPathFromCity(dest);
+				this.destPath = [dest];
+			}
 		}
 		public function Soldier() {
 			this.addEventListener(Event.ENTER_FRAME, MoveSoldier);
