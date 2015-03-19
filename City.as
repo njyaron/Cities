@@ -13,13 +13,6 @@
 			
 			// constructor code
 		}
-		
-		public function CreateSoldier(s:Soldier){
-			stage.addChild(s);
-			s.x = this.x;
-			s.y = this.y;
-			s.GoToDestination();
-		}
 	}
 	
 }
