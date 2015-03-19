@@ -7,6 +7,7 @@
 		public static const initSmallCityAttack: Number = 5;
 		public static const initLargeCityRegen: Number = 1;
 		public static const initSmallCityRegen: Number = 1;
+		
 
 	}
 

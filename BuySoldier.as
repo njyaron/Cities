@@ -15,9 +15,9 @@
 		function generateSoldier(e: MouseEvent): void {
 			var s:Soldier = new Soldier();
 			stage.addChild(s);
-			s.x = this.srcCity.x + (this.srcCity.width - s.width)/2;
-			s.y = this.srcCity.y + (this.srcCity.height - s.height)/2;
-			s.GotoDestination(destCity);
+			s.x = this.srcCity.x;// + (this.srcCity.width - s.width)/2;
+			s.y = this.srcCity.y;// + (this.srcCity.height - s.height)/2;
+			s.GotoDestination(destCity, this.srcCity);
 		}
 	}
 
