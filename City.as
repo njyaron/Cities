@@ -4,52 +4,31 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 
-	public class City extends MovieClip
+	public class City extends Entity
 	{
-		private var hp:Number;
-		private var attack:Number;//per second
-		private var owner:Number;
-		private var isAttacked:Boolean;
 		private var attackedBy:Array = new Array();
 
 		public function City()
 		{
-			this.hp = Constants.initLargeCityHP;
-			this.addEventListener(Event.ENTER_FRAME,Attacking);
+			this.hp = Utils.initLargeCityHP;
 			//this.addEventListener(Event.ENTER_FRAME, hitTest);
+			this.addEventListener(Event.ENTER_FRAME,attacking);
+
 		}
 
-		public function CreateSoldier(s:Soldier)
+		public function createSoldier(s:Soldier)
 		{
 			stage.addChild(s);
 			s.x = this.x;
 			s.y = this.y;
-			s.GoToDestination();
-		}
-		/*public function hitTest(e:Event)
-		{
-		}*/
-		public function removeHP(ammount:Number, attacker:Soldier)
-		{
-			this.HP -=  ammount;
-			if (this.HP <= 0)
-			{
-				cityDestroyed(attacker);
-			}
+			s.gotoDestination(Utils.cityArray[Utils.superCityId], this);
 		}
 		public function cityDestroyed(attacker:Soldier)
 		{
 			//TODO: Implement cityDestroyed
 		}
-		public function Attacked(s:Soldier)
-		{
-			this.attackedBy.push(s);
-			if (! this.isAttacked)
-			{
-				this.isAttacked = true;
-			}
-		}
-		private function Attacking(e:Event)
+		
+		private function attacking(e:Event)
 		{
 			//TODO: set frame to attack frame;
 			if (isAttacked)
@@ -60,7 +39,7 @@
 					var s:Soldier = attackedBy[i];
 					if (! s.isDead())
 					{
-						s.removeHP(this.attack/60);
+						s.removeHP(this.attackDamage/60);
 						available = true;
 					}
 					else
@@ -68,10 +47,19 @@
 						//attackedBy.
 					}
 				}
-				if (! availble)
+				if (!available)
 				{
 					isAttacked = false;
 				}
+			}
+		}
+		
+		public function attacked(s:Soldier)
+		{
+			this.attackedBy.push(s);
+			if (! this.isAttacked)
+			{
+				this.isAttacked = true;
 			}
 		}
 	}

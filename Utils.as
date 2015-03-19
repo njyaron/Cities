@@ -1,5 +1,7 @@
 ﻿package  {
 	
+	import flash.display.*;
+	
 	public class Utils {
 		
 		public static const initLargeCityHP:Number = 100;
@@ -15,7 +17,7 @@
 		
 		public static function hitTest(a:DisplayObject,b:DisplayObject)
 		{
-			return a.hitTest(b);
+			return a.hitTestObject(b);
 		}
 		public static function cmp(a:Number, b:Number)
 		{

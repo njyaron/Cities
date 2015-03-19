@@ -4,11 +4,12 @@
 
 	public class User extends MovieClip {
 
-		private var dest: Number;
+		public static var dest: Number;
 		private const ID: Number;
 		private var money: Number;
 
-
+		
+		
 		public function User() {
 			dest = 0;
 
