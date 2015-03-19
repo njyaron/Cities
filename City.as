@@ -6,20 +6,6 @@
 
 	public class City extends MovieClip
 	{
-
-
-<<<<<<< HEAD
-	public class Utils extends MovieClip {
-		
-		private var cityHP: Number; 
-		private var cityAttack: Number;
-		private var owner: Number;
-		public var id: Number;
-		
-		public function City() {
-			this.cityHP = Constants.initLargeCityHP;
-			
-=======
 		private var hp:Number;
 		private var attack:Number;//per second
 		private var owner:Number;
@@ -31,8 +17,6 @@
 			this.hp = Constants.initLargeCityHP;
 			this.addEventListener(Event.ENTER_FRAME,Attacking);
 			//this.addEventListener(Event.ENTER_FRAME, hitTest);
->>>>>>> e1653ca19fdd30aeebc5fe92cac4632ffc24be49
-			// constructor code
 		}
 
 		public function CreateSoldier(s:Soldier)
