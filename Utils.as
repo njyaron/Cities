@@ -11,6 +11,7 @@
 		public static const cityCount: Number = 8;
 		public static const superCityId: Number = cityCount;
 		public static const cityArray: Array; //TOADD id to city mapping
+		public static const directions:direction_utils;
 		
 		
 		public static function hitTest(a:DisplayObject,b:DisplayObject)
@@ -27,6 +28,11 @@
 		}
 		
 
+	}
+	public final class direction_utils
+	{
+		public static const LEFT:Number = 0;
+		public static const RIGHT:Number = 1;
 	}
 	
 	
