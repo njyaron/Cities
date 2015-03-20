@@ -1,78 +1,81 @@
-﻿package 
-{
+﻿package {
 
-	import flash.display.MovieClip;
-	import flash.events.Event;
+	public class City {
 
-	public class City extends MovieClip
-	{
-		private var hp:Number;
-		private var attack:Number;//per second
-		private var owner:Number;
-		private var isAttacked:Boolean;
-		private var attackedBy:Array = new Array();
+		private var hp: Number;
+		private var damage: Number;
+		private var regen: Number;
+		private var user;
+		private var soldierCount: Number;
+		private var attackedThisFrame;
+		private var ID;
+		private var isLargeCity;
 
-		public function City()
-		{
-			this.hp = Constants.initLargeCityHP;
-			this.addEventListener(Event.ENTER_FRAME,Attacking);
-			//this.addEventListener(Event.ENTER_FRAME, hitTest);
+		public function City(ID, user, largeCity: Boolean, fictive:Boolean) {
+			if (largeCity) {
+				this.hp = Utils.initLargeCityHP;
+				this.damage = Utils.initLargeCityAttackDamage; //check this exists
+				this.regen = Utils.initLargeCityRegen;
+			} else {
+				this.hp = Utils.initSmallCityHP;
+				this.damage = Utils.initSmallCityAttackDamage; //check this exists
+				this.regen = Utils.initSmallCityRegen;
+			}
+			this.isLargeCity = largeCity;
+			this.soldierCount = 0;
+			this.user = user;
+			this.ID = ID;
+			if(!fictive){
+			this.addEventListener(Event.ENTER_FRAME, regenerateHealth);
+			this.addEventListener(Event.ENTER_FRAME, resetFrameAttack);
+						this.addEventListener(MouseEvent.MOUSE_CLICK, selectCity);
+			}	
 		}
 
-		public function CreateSoldier(s:Soldier)
-		{
-			stage.addChild(s);
-			s.x = this.x;
-			s.y = this.y;
-			s.GoToDestination();
+		public function getUser() {
+			return this.user;
 		}
-		/*public function hitTest(e:Event)
-		{
-		}*/
-		public function removeHP(ammount:Number, attacker:Soldier)
-		{
-			this.HP -=  ammount;
-			if (this.HP <= 0)
-			{
-				cityDestroyed(attacker);
+
+		public function getX {
+			return this.x;
+		}
+
+		public function getY {
+			return this.y;
+		}
+		public function getDamage() {
+			return this.damage;
+		}
+		
+		public function getIsLargeCity(){
+			return isLargeCity;
+		}
+
+		public function attacked(damage: Number, attacker: Soldier) {
+			this.attackedThisFrame = true;
+			this.hp -= damage;
+			if (this.hp < 0) { //change owner if HP is negative
+				this.user = attacker.getUser();
 			}
 		}
-		public function cityDestroyed(attacker:Soldier)
-		{
-			//TODO: Implement cityDestroyed
+
+		public function reinforcement(reinforcer: Soldier) {
+			this.hp += Utils.largeCityReinforcementHPFactor * reinforcer.hp;
 		}
-		public function Attacked(s:Soldier)
-		{
-			this.attackedBy.push(s);
-			if (! this.isAttacked)
-			{
-				this.isAttacked = true;
-			}
+
+		private function regenerateHealth(e) {
+			this.hp += this.regen;
 		}
-		private function Attacking(e:Event)
-		{
-			//TODO: set frame to attack frame;
-			if (isAttacked)
-			{
-				var available:Boolean = false;
-				for (var i:Number = 0; i < attackedBy.length; i++)
-				{
-					var s:Soldier = attackedBy[i];
-					if (! s.isDead())
-					{
-						s.removeHP(this.attack/60);
-						available = true;
-					}
-					else
-					{
-						//attackedBy.
-					}
-				}
-				if (! availble)
-				{
-					isAttacked = false;
-				}
-			}
+
+		private function resetFrameAttack() {
+			this.attackedThisFrame = false;
+		}
+		public functon isDead() {
+			return this.hp < 0;
+		}
+
+		private function selectCity() {
+			player.setDestination(this);
 		}
 	}
 
